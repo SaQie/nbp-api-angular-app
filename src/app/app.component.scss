@@ -1,0 +1,15 @@
+.banner{
+    display: flex;
+    justify-content: center;
+}
+
+.banner-text{
+    font-size: 25px;
+    padding: 35px;
+    border-bottom: 2px black solid;
+    border-color: black;
+}
+.selected-row {
+    color: green;
+}
+  

@@ -1,0 +1,54 @@
+<div mat-dialog-title>
+    <h1>Przelicznik wybranej waluty</h1>
+</div>
+<form [formGroup]="currencyForm" (ngSubmit)="calculateCurrencies()">
+    <div mat-dialog-content class="content">
+        <div class="row">
+            <mat-radio-group formControlName="operation">
+                <mat-label>Chcę</mat-label>
+                <mat-radio-button value="Kupić" checked>Kupić</mat-radio-button>
+                <mat-radio-button value="Sprzedać">Sprzedać</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <p>{{currencyData.code}} ( {{currencyData.currency}} )</p>
+        <div class="row" *ngIf="isBuyAction">
+            <mat-form-field appearance="outline">
+                <mat-label>Posiadając</mat-label>
+                <mat-select formControlName="currencySelect">
+                    <mat-option *ngFor="let currency of allCurrencies" [value]="currency">
+                        {{currency.code}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>W ilości</mat-label>
+                <input matInput type="text" placeholder="Ex. 250,00" formControlName="value" type="number">
+            </mat-form-field>
+        </div>
+        <div class="row" *ngIf="!isBuyAction">
+            <mat-form-field appearance="outline">
+                <mat-label>W ilości</mat-label>
+                <input matInput type="text" placeholder="Ex. 250,00" formControlName="value" type="number">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>I otrzymać</mat-label>
+                <mat-select formControlName="currencySelect">
+                    <mat-option *ngFor="let currency of allCurrencies" [value]="currency">
+                        {{currency.code}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="row" *ngIf="result && result.length > 1">
+            <p>{{result}}</p>
+        </div>
+    </div>
+
+
+
+    <div mat-dialog-actions class="action">
+        <button mat-button type="button" [mat-dialog-close]="false" color="warn">Zamknij</button>
+        <button mat-button mat-raise-button color="primary" type="submit">Przelicz</button>
+    </div>
+</form>
+
