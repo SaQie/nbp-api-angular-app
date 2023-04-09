@@ -13,4 +13,5 @@ export interface Currency {
   code: string
   bid: number
   ask: number
+  effectiveDate?: Date
 }

@@ -10,15 +10,15 @@ import { CurrencyConverterComponent } from '../components/currency-converter/cur
 })
 export class CurrencyConverterService {
 
-  private selectedCurrenciesToCompare = new Subject<Currency>();
-  private currenciesToCompareSubscription!: Subscription;
+  private selectedCurrencyToCompare = new Subject<Currency>();
+  private currencyToCompareSubscription!: Subscription;
 
   constructor(private _snackBar: MatSnackBar, private _dialog: MatDialog) {
     this.subscribeSnackBar();
   }
 
   private subscribeSnackBar(): void {
-    this.currenciesToCompareSubscription = this.selectedCurrenciesToCompare
+    this.currencyToCompareSubscription = this.selectedCurrencyToCompare
       .subscribe(currency => {
         const dialogDataToSend = currency;
         const snackbar = this._snackBar.open(`Wybrana waluta do przeliczenia: [ ${currency.code} ]`, 'Przelicz', {
@@ -32,7 +32,7 @@ export class CurrencyConverterService {
   };
 
   setCurrencyToConverter(currency: Currency) {
-    this.selectedCurrenciesToCompare.next(currency);
+    this.selectedCurrencyToCompare.next(currency);
   }
 }
 
