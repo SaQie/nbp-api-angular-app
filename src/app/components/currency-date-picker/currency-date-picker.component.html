@@ -1,0 +1,31 @@
+<div mat-dialog-title>
+    <h1>Zakres dat dla wybranej waluty</h1>
+</div>
+<form [formGroup]="dateRangeForm" (ngSubmit)="onShowButtonClick()">
+    <div mat-dialog-content class="content">
+        <div class="row">
+            <mat-form-field appearance="fill">
+                <mat-label>Data od</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="dateFrom">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field appearance="fill">
+                <mat-label>Data do</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="dateTo">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+
+
+    <div mat-dialog-actions class="action">
+        <button mat-button type="button" [mat-dialog-close]="false" color="warn">Zamknij</button>
+        <button mat-raised-button color="primary" type="submit">Pokaz</button>
+    </div>
+</form>

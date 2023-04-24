@@ -3,7 +3,10 @@ import { CurrencyService } from './services/currency.service';
 import { Currency, CurrencyTableInfo } from './models/currency';
 import { MatTableDataSource } from '@angular/material/table';
 import { CurrencyConverterService } from './services/currency-converter.service';
+import { MatDialog } from '@angular/material/dialog';
 import { map, pipe, tap } from 'rxjs';
+import { CurrencyDatePickerComponent } from './components/currency-date-picker/currency-date-picker.component';
+import { DateRange } from './models/dateRange';
 
 @Component({
   selector: 'app-root',
@@ -38,7 +41,7 @@ export class AppComponent implements OnInit {
   dataSource!: MatTableDataSource<Currency>;
   historyDataSource!: MatTableDataSource<Currency>;
 
-  constructor(private _currencyService: CurrencyService, private _converterService: CurrencyConverterService) { }
+  constructor(private _currencyService: CurrencyService, private _converterService: CurrencyConverterService, private _dialog: MatDialog) { }
 
   ngOnInit(): void {
     this._currencyService.getCurrencyTable().pipe(
@@ -55,18 +58,25 @@ export class AppComponent implements OnInit {
   }
 
   onHistoryButtonClick(clickedElement: Currency): void {
-    // dodaj komponent z dialogiem z wyborem daty i przekaz tutaj te parametry, pozniej pojdzie subscribe i essa
-    this.dataIsLoading = true;
-    this._currencyService.getCurrencyHistoryTable().pipe(
-      tap(() => {
-        this.dataIsLoading = false;
-        this.isActualData = false;
-      })
-    )
-      .subscribe(data => {
-        this.selectedCurrency = clickedElement;
-        this.historyDataSource = new MatTableDataSource(data.rates);
-      })
+    const dialogRef = this._dialog.open(CurrencyDatePickerComponent, {data: clickedElement});
+    dialogRef.afterClosed().subscribe({
+      next: (response) => {
+        if (response){
+          console.log(response);
+          this.dataIsLoading = true;
+          this._currencyService.getCurrencyHistoryTable(clickedElement.code, response).pipe(
+            tap(() => {
+              this.dataIsLoading = false;
+              this.isActualData = false;
+            })
+          )
+            .subscribe(data => {
+              this.selectedCurrency = clickedElement;
+              this.historyDataSource = new MatTableDataSource(data.rates);
+            })
+        }
+      }
+    })
   }
 
 }
