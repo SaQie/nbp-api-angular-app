@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Currency } from 'src/app/models/currency';
 import { DateRange } from 'src/app/models/dateRange';
@@ -7,7 +8,8 @@ import { DateRange } from 'src/app/models/dateRange';
 @Component({
   selector: 'app-currency-date-picker',
   templateUrl: './currency-date-picker.component.html',
-  styleUrls: ['./currency-date-picker.component.scss']
+  styleUrls: ['./currency-date-picker.component.scss'],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
 })
 export class CurrencyDatePickerComponent {
 

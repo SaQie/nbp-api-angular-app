@@ -1,15 +1,6 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
   <span>NBP APP</span>
   <span class="example-spacer"></span>
-  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>share</mat-icon>
-  </button>
 </mat-toolbar>
 
 
@@ -19,10 +10,13 @@
   </h3>
 </div>
 
-<mat-spinner *ngIf="dataIsLoading" class="spinner"></mat-spinner>
+<div *ngIf="errorOccured" class="banner">{{errorMessage}}</div>
+<div *ngIf="errorOccured" class="banner"><button mat-raised-button (click)="backToHomePage()">Strona główna</button></div>
+
+<mat-spinner *ngIf="dataIsLoading && !errorOccured" class="spinner"></mat-spinner>
 
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="!dataIsLoading && isActualData">  
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="!dataIsLoading && isActualData && !errorOccured">  
 
 
   <ng-container matColumnDef="id">
@@ -70,14 +64,7 @@
 </table>
 
 
-<table mat-table [dataSource]="historyDataSource" class="mat-elevation-z8" *ngIf="!dataIsLoading && !isActualData">  
-
-
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef> LP. </th>
-    <td mat-cell *matCellDef="let element"> {{dataSource.data.indexOf(element)}} </td>
-  </ng-container>
-
+<table mat-table [dataSource]="historyDataSource" class="mat-elevation-z8" *ngIf="!dataIsLoading && !isActualData && !errorOccured">  
 
   <ng-container matColumnDef="date">
     <th mat-header-cell *matHeaderCellDef> Data </th>
