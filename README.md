@@ -12,13 +12,13 @@ It's my first simple angular application that fetch data from api (NBP api)
 # Screenshots
 
 <p align="center">
-    <a href='https://imgur.com/KzC7H8I'>
+    <img src="https://i.imgur.com/KzC7H8I.png">
 </p>
 <p align="center">
-<a href='https://imgur.com/VzInSs4'>
+  <img src="https://i.imgur.com/5a1EXO3.png">
 </p>
 <p align="center">
-<a href='https://imgur.com/5a1EXO3'>
+  <img src="https://i.imgur.com/VzInSs4.png">
 </p>
 
 
